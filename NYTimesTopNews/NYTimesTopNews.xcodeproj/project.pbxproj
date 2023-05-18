@@ -13,7 +13,7 @@
 		6F400BBF2A1525F100636418 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F400BBD2A1525F100636418 /* Main.storyboard */; };
 		6F400BC12A1525F100636418 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F400BC02A1525F100636418 /* Assets.xcassets */; };
 		6F400BC42A1525F100636418 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F400BC22A1525F100636418 /* LaunchScreen.storyboard */; };
-		6FF0D3D12A15BF4700D1247B /* GridLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 6FF0D3D02A15BF4700D1247B /* GridLayout */; };
+		6FD7BA432A169691009E38E8 /* GridLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD7BA422A169691009E38E8 /* GridLayout */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		6F400BC02A1525F100636418 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F400BC32A1525F100636418 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F400BC52A1525F100636418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6F400BCB2A15260900636418 /* GridLayout */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GridLayout; path = ../GridLayout; sourceTree = "<group>"; };
+		6FD7BA412A169676009E38E8 /* GridLayout */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GridLayout; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FF0D3D12A15BF4700D1247B /* GridLayout in Frameworks */,
+				6FD7BA432A169691009E38E8 /* GridLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,7 +43,7 @@
 		6F400BAB2A1525F000636418 = {
 			isa = PBXGroup;
 			children = (
-				6F400BCB2A15260900636418 /* GridLayout */,
+				6FD7BA412A169676009E38E8 /* GridLayout */,
 				6F400BB62A1525F100636418 /* NYTimesTopNews */,
 				6F400BB52A1525F100636418 /* Products */,
 				6F400BCC2A15281C00636418 /* Frameworks */,
@@ -128,7 +128,7 @@
 			);
 			name = NYTimesTopNews;
 			packageProductDependencies = (
-				6FF0D3D02A15BF4700D1247B /* GridLayout */,
+				6FD7BA422A169691009E38E8 /* GridLayout */,
 			);
 			productName = NYTimesTopNews;
 			productReference = 6F400BB42A1525F100636418 /* NYTimesTopNews.app */;
@@ -407,7 +407,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6FF0D3D02A15BF4700D1247B /* GridLayout */ = {
+		6FD7BA422A169691009E38E8 /* GridLayout */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GridLayout;
 		};
