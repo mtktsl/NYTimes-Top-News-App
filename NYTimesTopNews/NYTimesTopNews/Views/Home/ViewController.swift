@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let service = DataProviderService()
-        //let urlString = "https://api.nytimes.com/svc/topstories/v2/arts.json?api-key=chVtlHkl1VlCWdX0ADK9oASsgZsj0HVa"
+        let jsonDataString = "https://api.nytimes.com/svc/topstories/v2/arts.json?api-key=chVtlHkl1VlCWdX0ADK9oASsgZsj0HVa"
         
         let imageView = UIImageView()
         imageView.frame = view.bounds
@@ -43,6 +43,17 @@ class ViewController: UIViewController {
                 case .statusCode(let code):
                     print("Error status code: \(code)")
                 }
+            }
+        }
+        
+        service.fetchData(from: jsonDataString,
+                          dataType: NYTopModel.self,
+                          decode: true) { result in
+            switch result {
+            case .success(_):
+                print("Data fetched")
+            case .failure(let error):
+                print(error)
             }
         }
     }
