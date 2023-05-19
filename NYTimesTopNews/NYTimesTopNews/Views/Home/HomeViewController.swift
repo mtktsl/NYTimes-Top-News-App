@@ -19,20 +19,15 @@ class HomeViewController: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: TopStoryListLayout(cellHeight: viewModel.cellHeight))
+                                              collectionViewLayout: TopStoryListLayout(
+                                                cellHeight: viewModel.cellHeight))
+        
         collectionView.register(TopStoryListCell.self,
                                 forCellWithReuseIdentifier: TopStoryListCell.reuseIdentifier)
-        collectionView.backgroundView = logoView
         
+        collectionView.backgroundView = logoView
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
-    }()
-    
-    lazy var mainGrid: Grid = {
-        return Grid.vertical {
-            Star(value: 1) {
-                collectionView
-            }
-        }
     }()
     
     lazy var logoView: UIImageView = {
@@ -43,60 +38,34 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.view.backgroundColor = .systemBlue
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barTintColor = .systemBlue
+        navigationController?.navigationBar.isTranslucent = false
         
         viewModel = HomeViewModel(service: DataProviderService())
         TopStoryListCell.cellHeight = viewModel.cellHeight
+        title = viewModel.title
+        
         
         collectionView.dataSource = self
         collectionView.delegate = self
         
         viewModel.fetchData()
         
-        view.addSubview(mainGrid)
-        
-        mainGrid.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            mainGrid.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainGrid.topAnchor.constraint(equalTo: view.topAnchor),
-            mainGrid.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainGrid.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mainGrid.setNeedsLayout()
-    }
-    
-    func navigate(_ data: NYDetailPageModel) {
-        let vc = DetailViewController()
-        vc.viewModel = DetailViewModel(dataModel: data,
-                                       service: DataProviderService())
-        vc.view.backgroundColor = .white
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-    }
-    
-    func showErrorPopUp(message: String) {
-        let alertController = UIAlertController(title: "Network Error",
-                                                message: message,
-                                                preferredStyle: .alert)
-        
-        let retryAction = UIAlertAction(title: "Retry",
-                                        style: .default) { action in
-            self.viewModel.fetchData()
-        }
-        
-        let exitAction = UIAlertAction(title: "Exit",
-                                       style: .destructive) { action in
-            exit(0)
-        }
-        
-        alertController.addAction(retryAction)
-        alertController.addAction(exitAction)
-        
-        present(alertController, animated: true)
+        collectionView.setNeedsLayout()
     }
 }
 
@@ -129,6 +98,39 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                             description: data.description,
                             author: data.author,
                             urlString: data.urlString))
+    }
+}
+
+extension HomeViewController {
+    
+    func navigate(_ data: NYDetailPageModel) {
+        let vc = DetailViewController()
+        vc.viewModel = DetailViewModel(dataModel: data,
+                                       service: DataProviderService())
+        vc.view.backgroundColor = .white
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showErrorPopUp(message: String) {
+        let alertController = UIAlertController(title: "Network Error",
+                                                message: message,
+                                                preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Retry",
+                                        style: .default) { action in
+            self.viewModel.fetchData()
+        }
+        
+        let exitAction = UIAlertAction(title: "Exit",
+                                       style: .destructive) { action in
+            exit(0)
+        }
+        
+        alertController.addAction(retryAction)
+        alertController.addAction(exitAction)
+        
+        present(alertController, animated: true)
     }
 }
 

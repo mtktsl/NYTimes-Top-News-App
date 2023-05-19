@@ -10,6 +10,8 @@ import NetworkDataAPI
 
 extension HomeViewModel {
     fileprivate enum HomeVMConstants {
+        static let title = "NY Times - Top Stories"
+        
         static let cellHeight: Double = 150
         
         static let unknownErrorMessage = "Unknown connection error."
@@ -23,6 +25,8 @@ protocol HomeViewModelProtocol {
     var numberOfItems: Int { get }
     var delegate: HomeViewModelDelegate? { get set }
     var cellHeight: Double { get }
+    var title: String { get }
+    
     
     func fetchData()
     func getNews(_ at: Int) -> NYResultModel
@@ -42,15 +46,6 @@ final class HomeViewModel {
     init(service: DataProviderServiceProtocol) {
         dataService = service
     }
-    
-    /*private func convertData(topData: NYTopModel) {
-        for topItem in topData.results {
-            newsData.append(.init(imageSource: topItem.multimedia.last?.urlString,
-                                  title: topItem.title,
-                                  author: topItem.author,
-                                  urlString: topItem.urlString))
-        }
-    }*/
     
     private func generateMessageFromError(error: DataProviderServiceError) -> String {
         switch error {
@@ -83,6 +78,10 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel: HomeViewModelProtocol {
+    var title: String {
+        return HomeVMConstants.title
+    }
+    
     var numberOfItems: Int {
         return newsData?.results.count ?? 0
     }
