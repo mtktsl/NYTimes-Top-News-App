@@ -11,7 +11,7 @@ public class DataProviderService: DataProviderServiceProtocol {
     
     public init() {}
     
-    public func fetchData<T>(from urlString: String,
+    public func fetchData<T: Decodable>(from urlString: String,
                              dataType: T.Type = Data.self,
                              decode: Bool = false,
                              completion: @escaping (Result<T, DataProviderServiceError>) -> Void) where T : Decodable {
@@ -36,13 +36,13 @@ public class DataProviderService: DataProviderServiceProtocol {
                             completion(.success(data as! T))
                         }
                     } else {
-                        completion(.failure(DataProviderServiceError.emptyResponse))
+                        completion(.failure(DataProviderServiceError.noResponse))
                     }
                 } else {
                     completion(.failure(DataProviderServiceError.statusCode(code: response.statusCode)))
                 }
             } else {
-                completion(.failure(DataProviderServiceError.emptyResponse))
+                completion(.failure(DataProviderServiceError.noResponse))
             }
         }.resume()
     }

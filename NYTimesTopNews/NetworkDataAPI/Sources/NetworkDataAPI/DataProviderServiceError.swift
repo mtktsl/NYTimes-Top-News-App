@@ -9,7 +9,7 @@ import Foundation
 
 public enum DataProviderServiceError: Error {
     case statusCode(code: Int)
-    case emptyResponse
+    case noResponse
     case decodeError
     case unknown
 }
